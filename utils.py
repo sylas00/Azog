@@ -21,3 +21,9 @@ def handler_disk_info(total: str, use: str) -> dict:
     disk_total = total.splitlines()[0]
     disk_use = use.splitlines()[0]
     return {'disk_total': disk_total, 'disk_use': disk_use}
+
+
+def handler_uptime_info(info_stdout: str) -> float:
+    uptime_str = info_stdout.split()[0]
+    uptime_float = float(uptime_str) / (3600.0 * 24)
+    return round(uptime_float, 1)

@@ -1,10 +1,10 @@
 import paramiko
 
 from exception import InitHostException, HostClientException, ExecuteCommandException
-from utils import handler_memory_info, handler_system_info, handler_disk_info
+from utils import handler_memory_info, handler_system_info, handler_disk_info, handler_uptime_info
 
 hosts = [
-    {'Address': '192.222.5.2', 'Port': 22, 'User': '', 'Password': 'donotuseroot!'},
+    # {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
     {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'},
 ]
 
@@ -38,6 +38,9 @@ class Host:
             "LANG=C df -hPl | grep -wvE '\-|none|tmpfs|overlay|shm|udev|devtmpfs|by-uuid|chroot|Filesystem' | awk '{print $3}'")
         return handler_disk_info(total, use)
 
+    def get_uptime_info(self) -> float:
+        return handler_uptime_info(self.execute('cat /proc/uptime'))
+
     def execute(self, command: str) -> str:
         stdin, stdout, stderr = self.client.exec_command(command)
         rsp = stdout.read().decode('utf-8')
@@ -53,12 +56,13 @@ if __name__ == '__main__':
         try:
             h = Host(i)
 
-            print(h.get_system_info())
-            print(h.get_memory_info())
-            print(h.get_disk_info())
+            # print(h.get_system_info())
+            # print(h.get_memory_info())
+            # print(h.get_disk_info())
+            print(h.get_uptime_info())
+
             print('*' * 50)
         except HostClientException as e:
             print(e.code, e.message)
         except Exception as e:
             print(e)
-
