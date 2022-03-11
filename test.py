@@ -1,6 +1,6 @@
 import paramiko
 
-from exception import InitHostException, HostClientException
+from exception import InitHostException, HostClientException, ExecuteCommandException
 from utils import handler_memory_info, handler_system_info, handler_disk_info
 
 hosts = [
@@ -43,7 +43,7 @@ class Host:
         rsp = stdout.read().decode('utf-8')
         error = stderr.read().decode('utf-8')
         if error:
-            raise
+            raise ExecuteCommandException(error)
         return rsp
 
 
@@ -59,4 +59,6 @@ if __name__ == '__main__':
             print('*' * 50)
         except HostClientException as e:
             print(e.code, e.message)
+        except Exception as e:
+            print(e)
 
