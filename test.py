@@ -1,6 +1,6 @@
 import paramiko
 
-from utils import handler_memory_info, handler_system_info
+from utils import handler_memory_info, handler_system_info, handler_disk_info
 
 hosts = [
     {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
@@ -35,6 +35,13 @@ class Host:
     def get_memory_info(self) -> dict:
         return handler_memory_info(self.execute('free'))
 
+    def get_disk_info(self) -> dict:
+        total = self.execute(
+            "LANG=C df -hPl | grep -wvE '\-|none|tmpfs|overlay|shm|udev|devtmpfs|by-uuid|chroot|Filesystem' | awk '{print $2}' ")
+        use = self.execute(
+            "LANG=C df -hPl | grep -wvE '\-|none|tmpfs|overlay|shm|udev|devtmpfs|by-uuid|chroot|Filesystem' | awk '{print $3}'")
+        return handler_disk_info(total, use)
+
     def execute(self, command: str) -> str:
         stdin, stdout, stderr = self.client.exec_command(command)
         rsp = stdout.read().decode('utf-8')
@@ -47,4 +54,5 @@ if __name__ == '__main__':
         h = Host(i)
         print(h.get_system_info())
         print(h.get_memory_info())
+        print(h.get_disk_info())
         print('*' * 50)

@@ -15,3 +15,9 @@ def handler_system_info(info_stdout: str) -> dict:
         info_name, *junk, info_value = [_i.strip() for _i in line_info.partition(':')]
         machine_info_dict[info_name] = info_value
     return machine_info_dict
+
+
+def handler_disk_info(total: str, use: str) -> dict:
+    disk_total = total.splitlines()[0]
+    disk_use = use.splitlines()[0]
+    return {'disk_total': disk_total, 'disk_use': disk_use}
