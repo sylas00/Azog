@@ -1,5 +1,7 @@
 import paramiko
 
+from utils import handler_memory_info, handler_system_info
+
 hosts = [
     {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
     {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'},
@@ -27,34 +29,16 @@ class Host:
     def __del__(self):
         self.client.close()
 
-    @staticmethod
-    def handler_system_info(info_stdout: str) -> dict:
-        info_list = info_stdout.splitlines()
-        machine_info_dict = {}
-        for _ in info_list:
-            line_info = _.strip()
-            info_name, *junk, info_value = [_i.strip() for _i in line_info.partition(':')]
-            machine_info_dict[info_name] = info_value
-        return machine_info_dict
-
     def get_system_info(self) -> dict:
-        stdin, stdout, stderr = self.client.exec_command('hostnamectl')
-        rsp = stdout.read().decode('utf-8')
-        return self.handler_system_info(rsp)
-
-    @staticmethod
-    def handler_memory_info(info_stdout: str) -> dict:
-        info_list = info_stdout.splitlines()[1:]
-        memory_info_dict = {}
-        for _ in info_list:
-            a = _.split()[:3]
-            memory_info_dict[a[0]] = {'total': int(a[1]), 'use': int(a[2])}
-        return memory_info_dict
+        return handler_system_info(self.execute('hostnamectl'))
 
     def get_memory_info(self) -> dict:
-        stdin, stdout, stderr = self.client.exec_command('free')
+        return handler_memory_info(self.execute('free'))
+
+    def execute(self, command: str) -> str:
+        stdin, stdout, stderr = self.client.exec_command(command)
         rsp = stdout.read().decode('utf-8')
-        return self.handler_memory_info(rsp)
+        return rsp
 
 
 if __name__ == '__main__':
