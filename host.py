@@ -7,7 +7,7 @@ from server_info.ram_info import RamInfo
 from server_info.system_info import SystemInfo
 
 hosts = [
-    # {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
+    {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
     {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'},
 ]
 
@@ -32,6 +32,12 @@ if __name__ == '__main__':
     for i in hosts:
         try:
             h = Host(i)
+            # system
+            print(h.sys_info.get_uptime())
+            print(h.sys_info.get_load())
+            print(h.sys_info.get_kernel())
+            print(h.sys_info.get_release())
+            print(h.sys_info.get_architecture())
             # cpu
             print(h.cpu_info.get_cpu_name())
             print(h.cpu_info.get_cpu_cores())
@@ -46,9 +52,7 @@ if __name__ == '__main__':
             # disk
             print(h.disk_info.get_total_disk())
             print(h.disk_info.get_use_disk())
-            # stata
-            print(h.sys_info.get_uptime())
-            print(h.sys_info.get_load())
+
             print('*' * 50)
         except HostClientException as e:
             print(e.code, e.message)

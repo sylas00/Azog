@@ -13,11 +13,12 @@ command_dict = {
     'open_history': """ set -o history""",
 
     # get system release
-    'redhat': """[ -f /etc/redhat-release ] && awk '{print ($1,$3~/^[0-9]/?$3:$4)}' /etc/redhat-release""",
-    'other': """[ -f /etc/os-release ] && awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release""",
-    'debian': """[ -f /etc/lsb-release ] && awk -F'[="]+' '/DESCRIPTION/{print $2}' /etc/lsb-release""",
+    'release': """([ -f /etc/redhat-release ] && awk '{print ($1,$3~/^[0-9]/?$3:$4)}' /etc/redhat-release && echo
+                    [ -f /etc/os-release ] && awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release && echo
+                    [ -f /etc/lsb-release ] && awk -F'[="]+' '/DESCRIPTION/{print $2}' /etc/lsb-release && echo)""",
+    'architecture': """( uname -m )""",
+    'kernel': """( uname -r )""",
 
-    # state
     # 为什么写\\n
     # https://stackoverflow.com/questions/15779365/using-awk-in-popen-gives-runaway-string-constant-error
     'uptime': """( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60} {printf("%d days %d hour %d min\\n",a,b,c)}' /proc/uptime )""",

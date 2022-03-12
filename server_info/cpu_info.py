@@ -9,7 +9,7 @@ class CpuInfo(BaseHost):
         return self.execute(command_dict.get('cpu_name'))
 
     def get_cpu_cores(self):
-        return self.execute(command_dict.get('cpu_cores'))
+        return self.execute(command_dict.get('cpu_cores')) + 'Mhz'
 
     def get_cpu_freq(self):
         return self.execute(command_dict.get('cpu_freq'))
