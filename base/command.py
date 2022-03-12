@@ -8,13 +8,20 @@
 在 Fedora 中：cat /etc/fedora-release
 """
 command_dict = {
+
+    'close_history': """ set +o history""",
+    'open_history': """ set -o history""",
+
     # get system release
     'redhat': """[ -f /etc/redhat-release ] && awk '{print ($1,$3~/^[0-9]/?$3:$4)}' /etc/redhat-release""",
     'other': """[ -f /etc/os-release ] && awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release""",
     'debian': """[ -f /etc/lsb-release ] && awk -F'[="]+' '/DESCRIPTION/{print $2}' /etc/lsb-release""",
 
     # state
-    'up_time': """( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60} {printf("%d days %d hour %d min\n",a,b,c)}' /proc/uptime )""",
+    # 为什么写\\n
+    # https://stackoverflow.com/questions/15779365/using-awk-in-popen-gives-runaway-string-constant-error
+    'uptime': """( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60} {printf("%d days %d hour %d min\\n",a,b,c)}' /proc/uptime )""",
+    'load': """( w | head -1 | awk -F'load average:' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//' )""",
 
     # cpu_info
     'cpu_name': """( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )""",
@@ -33,6 +40,4 @@ command_dict = {
     'total_disk': """LANG=C df -hPl | grep -wvE '\-|none|tmpfs|overlay|shm|udev|devtmpfs|by-uuid|chroot|Filesystem' | awk '{print $2}'""",
     'use_disk': """LANG=C df -hPl | grep -wvE '\-|none|tmpfs|overlay|shm|udev|devtmpfs|by-uuid|chroot|Filesystem' | awk '{print $3}'""",
 
-    # load
-    'load': """( w | head -1 | awk -F'load average:' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//' )""",
 }

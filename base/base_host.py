@@ -33,4 +33,4 @@ class BaseHost:
         error = stderr.read().decode('utf-8')
         if error:
             raise ExecuteCommandException(error)
-        return rsp
+        return rsp.strip()

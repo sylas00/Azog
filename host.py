@@ -19,9 +19,11 @@ class Host(BaseHost):
         self.disk_info = DiskInfo(client=self.client)
         self.ram_info = RamInfo(client=self.client)
         self.sys_info = SystemInfo(client=self.client)
+        self.execute(command_dict.get('close_history'))
 
     def __del__(self):
         if hasattr(self, 'client'):
+            self.execute(command_dict.get('open_history'))
             self.client.close()
 
 
@@ -30,17 +32,23 @@ if __name__ == '__main__':
     for i in hosts:
         try:
             h = Host(i)
-            # ram
-            print(h.ram_info.get_memory_info())
             # cpu
             print(h.cpu_info.get_cpu_name())
             print(h.cpu_info.get_cpu_cores())
-            print(h.cpu_info.get_cpu_cores())
+            print(h.cpu_info.get_cpu_freq())
             print(h.cpu_info.get_cpu_core_cache())
+            # ram
+            print(h.ram_info.get_total_ram())
+            print(h.ram_info.get_use_ram())
+            print(h.ram_info.get_buff_ram())
+            print(h.ram_info.get_total_swap())
+            print(h.ram_info.get_use_swap())
             # disk
-            print(h.ram_info.get_memory_info())
-            print(h.ram_info.get_memory_info())
+            print(h.disk_info.get_total_disk())
+            print(h.disk_info.get_use_disk())
             # stata
+            print(h.sys_info.get_uptime())
+            print(h.sys_info.get_load())
             print('*' * 50)
         except HostClientException as e:
             print(e.code, e.message)
