@@ -1,6 +1,6 @@
 import paramiko
 
-from base.exception import ExecuteCommandException, InitHostException
+from linux_manager.base.exception import ExecuteCommandException, InitHostException
 
 
 class BaseHost:

@@ -1,30 +1,11 @@
-from base.base_host import BaseHost
 from base.exception import HostClientException
-from base.command import command_dict
-from server_info.cpu_info import CpuInfo
-from server_info.disk_info import DiskInfo
-from server_info.ram_info import RamInfo
-from server_info.system_info import SystemInfo
+from linux_manager import Host
 
 hosts = [
-    {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': '12345678!'},
+    # {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': '12345678!'},
+    {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'}
+
 ]
-
-
-class Host(BaseHost):
-    def __init__(self, host_connect_info: dict):
-        super().__init__(host_connect_info)
-        self.cpu_info = CpuInfo(client=self.client)
-        self.disk_info = DiskInfo(client=self.client)
-        self.ram_info = RamInfo(client=self.client)
-        self.sys_info = SystemInfo(client=self.client)
-        self.execute(command_dict.get('close_history'))
-
-    def __del__(self):
-        if hasattr(self, 'client'):
-            self.execute(command_dict.get('open_history'))
-            self.client.close()
-
 
 if __name__ == '__main__':
 

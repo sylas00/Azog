@@ -1,6 +1,6 @@
-from base.base_host import BaseHost
-from base.command import command_dict
-from server_info.info_utils import handler_system_info
+from linux_manager.base.base_host import BaseHost
+from linux_manager.base.command import command_dict
+from linux_manager.server_info.info_utils import handler_system_info
 
 
 class CpuInfo(BaseHost):
