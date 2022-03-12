@@ -7,8 +7,7 @@ from server_info.ram_info import RamInfo
 from server_info.system_info import SystemInfo
 
 hosts = [
-    {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
-    {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'},
+    {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': '12345678!'},
 ]
 
 
