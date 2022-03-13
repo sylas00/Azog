@@ -1,3 +1,3 @@
-from host import Host
+from linux_manager.host import Host
 
 __all__ = ['Host']

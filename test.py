@@ -1,9 +1,8 @@
-from base.exception import HostClientException
+from linux_manager.base.exception import HostClientException
 from linux_manager import Host
 
 hosts = [
     # {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': '12345678!'},
-    {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'}
 
 ]
 
