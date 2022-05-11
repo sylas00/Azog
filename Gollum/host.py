@@ -1,9 +1,9 @@
-from linux_manager.base.base_host import BaseHost
-from linux_manager.base.command import command_dict
-from linux_manager.server_info.cpu_info import CpuInfo
-from linux_manager.server_info.disk_info import DiskInfo
-from linux_manager.server_info.ram_info import RamInfo
-from linux_manager.server_info.system_info import SystemInfo
+from Gollum.base.base_host import BaseHost
+from Gollum.base.command import command_dict
+from Gollum.server_info.cpu_info import CpuInfo
+from Gollum.server_info.disk_info import DiskInfo
+from Gollum.server_info.ram_info import RamInfo
+from Gollum.server_info.system_info import SystemInfo
 
 
 class Host(BaseHost):

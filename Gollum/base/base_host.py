@@ -1,6 +1,6 @@
 import paramiko
 
-from linux_manager.base.exception import ExecuteCommandException, InitHostException
+from Gollum.base.exception import ExecuteCommandException, InitHostException
 
 
 class BaseHost:

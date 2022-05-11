@@ -1,8 +1,8 @@
-from linux_manager.base.exception import HostClientException
-from linux_manager import Host
+from Gollum.base.exception import HostClientException
+from Gollum import Host
 
 hosts = [
-    # {'Address': '192.222.5.2', 'Port': 22, 'User': 'root', 'Password': '12345678!'},
+    # {'Address': '192.223.42.25', 'Port': 22, 'User': 'root', 'Password': '123456'},
 
 ]
 
