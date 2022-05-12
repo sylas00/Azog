@@ -1,3 +1,3 @@
-from Azog.host import Host
+from Azog.host.host import Host
 
 __all__ = ['Host']
