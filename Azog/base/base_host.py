@@ -10,12 +10,12 @@ class BaseHost:
         self.connect_name = None
         self.connect_password = None
         if host_connect_info and not client:
-            self.init_ssh_client(host_connect_info)
+            self._init_ssh_client(host_connect_info)
         # 如果只传host信息就初始化  只传client 就是初始化工具类
         if client and not host_connect_info:
             self._client = client
 
-    def init_ssh_client(self, host_connect_info):
+    def _init_ssh_client(self, host_connect_info):
         self.connect_address = host_connect_info.get('Address', None)
         self.connect_port = host_connect_info.get('Port', None)
         self.connect_name = host_connect_info.get('User', None)
