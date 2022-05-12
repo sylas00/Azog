@@ -26,3 +26,7 @@ class InitHostException(HostClientException):
 class ExecuteCommandException(HostClientException):
     def __init__(self, error):
         super().__init__(f'Execute Command Error:{error}', 30001)
+
+
+class SFTPException(HostClientException):
+    pass

@@ -1,6 +1,6 @@
 import paramiko
 
-from Azog.base.exception import ExecuteCommandException, InitHostException
+from Azog.base.exception import ExecuteCommandException, InitHostException, SFTPException
 
 
 class BaseHost:
@@ -34,3 +34,32 @@ class BaseHost:
         if error:
             raise ExecuteCommandException(error)
         return rsp.strip()
+
+    def _init_sftp_transfer_file(self):
+        try:
+            t = paramiko.Transport((self.connect_address, self.connect_port))
+            t.connect(username=self.connect_name, password=self.connect_password)
+            sftp = paramiko.SFTPClient.from_transport(t)
+            return sftp
+        except Exception as e:
+            print(e)
+
+    def sftp_get(self, server_path, local_path):
+        sftp = self._init_sftp_transfer_file()
+
+        try:
+            sftp.get(server_path, local_path)
+        except SFTPException as e:
+            print(e)
+        finally:
+            sftp.close()
+
+    def sftp_put(self, local_path, server_path):
+        sftp = self._init_sftp_transfer_file()
+
+        try:
+            sftp.put(local_path, server_path)
+        except SFTPException as e:
+            print(e)
+        finally:
+            sftp.close()
