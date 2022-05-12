@@ -7,6 +7,7 @@ setup(
     author_email="xyjy5247@gmail.com",
     packages=find_packages(),
     python_requires='>=3.6',
+    license="MIT",
     install_requires=[
         'paramiko >= 2.10.1',
     ],
