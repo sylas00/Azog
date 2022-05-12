@@ -13,7 +13,7 @@ class BaseHost:
             self.init_ssh_client(host_connect_info)
         # 如果只传host信息就初始化  只传client 就是初始化工具类
         if client and not host_connect_info:
-            self.client = client
+            self._client = client
 
     def init_ssh_client(self, host_connect_info):
         self.connect_address = host_connect_info.get('Address', None)
@@ -23,12 +23,12 @@ class BaseHost:
         if not all([self.connect_port, self.connect_address, self.connect_name, self.connect_password]):
             raise InitHostException()
 
-        self.client = paramiko.SSHClient()
-        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.client.connect(self.connect_address, self.connect_port, self.connect_name, self.connect_password)
+        self._client = paramiko.SSHClient()
+        self._client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        self._client.connect(self.connect_address, self.connect_port, self.connect_name, self.connect_password)
 
     def execute(self, command: str) -> str:
-        stdin, stdout, stderr = self.client.exec_command(command)
+        stdin, stdout, stderr = self._client.exec_command(command)
         rsp = stdout.read().decode('utf-8')
         error = stderr.read().decode('utf-8')
         if error:
