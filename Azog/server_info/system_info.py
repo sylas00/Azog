@@ -1,6 +1,6 @@
-from Gollum.base.base_host import BaseHost
-from Gollum.base.command import command_dict
-from Gollum.server_info.info_utils import handler_uptime_info
+from Azog.base.base_host import BaseHost
+from Azog.base.command import command_dict
+from Azog.server_info.info_utils import handler_uptime_info
 
 
 class SystemInfo(BaseHost):

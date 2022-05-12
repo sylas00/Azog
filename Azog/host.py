@@ -1,9 +1,9 @@
-from Gollum.base.base_host import BaseHost
-from Gollum.base.command import command_dict
-from Gollum.server_info.cpu_info import CpuInfo
-from Gollum.server_info.disk_info import DiskInfo
-from Gollum.server_info.ram_info import RamInfo
-from Gollum.server_info.system_info import SystemInfo
+from Azog.base.base_host import BaseHost
+from Azog.base.command import command_dict
+from Azog.server_info.cpu_info import CpuInfo
+from Azog.server_info.disk_info import DiskInfo
+from Azog.server_info.ram_info import RamInfo
+from Azog.server_info.system_info import SystemInfo
 
 
 class Host(BaseHost):

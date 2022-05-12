@@ -1,6 +1,6 @@
 import paramiko
 
-from Gollum.base.exception import ExecuteCommandException, InitHostException
+from Azog.base.exception import ExecuteCommandException, InitHostException
 
 
 class BaseHost:
