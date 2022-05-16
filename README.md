@@ -36,6 +36,10 @@ if __name__ == '__main__':
             print(h.disk_info.get_total_disk())
             print(h.disk_info.get_use_disk())
 
+            # sftp
+            h.sftp_get('/root/111/2131', '1')
+            h.sftp_put('demo.py', '/root/111/demo.py')
+            
             print('*' * 50)
         except HostClientException as e:
             print(e.code, e.message)
