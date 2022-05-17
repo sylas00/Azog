@@ -2,6 +2,7 @@ from Azog.base.exception import HostClientException
 from Azog import Host
 hosts = [
     {'Address': '192.223.42.25', 'Port': 22, 'User': 'root', 'Password': 'donotuseroot!'},
+    # {'Address': '194.156.224.51', 'Port': 22, 'User': 'root', 'Password': 'Maijia123..'},
 
 ]
 
