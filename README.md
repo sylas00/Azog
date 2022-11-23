@@ -1,4 +1,5 @@
 ## 一个获取远程linux服务器信息的工具 
+Pypi https://pypi.org/project/Azog/
 
 # example
 ```python
